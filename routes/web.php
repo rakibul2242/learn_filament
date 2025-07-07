@@ -22,10 +22,9 @@
 // });
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\ServicesList;
+use App\Livewire\CoursesList;
+use App\Livewire\CourseDetail;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('services', ServicesList::class)->name('services.list');
+Route::get('/', CoursesList::class);
+Route::get('/courses', CoursesList::class)->name('courses.list');
+Route::get('/courses/{course}', CourseDetail::class)->name('courses.show');
