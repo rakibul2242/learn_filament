@@ -3,7 +3,6 @@
 <main class="bg-gray-50 min-h-screen py-10">
     <div class="container mx-auto max-w-5xl px-4">
 
-        <!-- Back Button -->
         <a href="{{ route('courses.list') }}"
             class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
@@ -13,7 +12,7 @@
             Back to Courses
         </a>
 
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
 
                 <div class="h-full w-full">
@@ -68,8 +67,14 @@
                     </div>
 
                     <div class="mt-8">
+                        @if (session()->has('message'))
+                            <div class="mb-4 text-green-700 bg-green-100 border border-green-300 p-4 rounded">
+                                {{ session('message') }}
+                            </div>
+                        @endif
+
                         <button wire:click="enroll"
-                            class="w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg">
+                            class="w-full cursor-pointer text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg">
                             Enroll Now
                         </button>
                     </div>
@@ -77,7 +82,6 @@
 
             </div>
         </div>
-    </div>
-
+        <livewire:content-list :course="$course" />
     </div>
 </main>

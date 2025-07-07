@@ -31,7 +31,10 @@ class CourseResource extends Resource
             TextInput::make('title')->label('Course Title')->required(),
             TextInput::make('short_desc')->label('Short Description')->required(),
             RichEditor::make('description')->columnSpanFull(),
-            TextInput::make('price')->numeric()->default(0)->required(),
+            TextInput::make('price')->numeric()->label('Price (USD)')
+                ->required()
+                ->minValue(0)
+                ->maxValue(1000),
             FileUpload::make('thumbnail')->label('Thumbnail Image')->image()->required()
                 ->maxSize(2048)
                 ->acceptedFileTypes(['image/*']),

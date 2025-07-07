@@ -27,15 +27,7 @@ class ContentsResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Select::make('course_id')
-                ->label('Course')
-                ->relationship('course', 'title')
-                ->required(),
-
-            TextInput::make('title')
-                ->label('Content Title')
-                ->required()
-                ->maxLength(255),
+            Select::make('course_id')->label('Course')->relationship('course', 'title')->required(),
 
             Select::make('type')
                 ->label('Content Type')
@@ -47,25 +39,15 @@ class ContentsResource extends Resource
                 ->required()
                 ->live(),
 
-            RichEditor::make('content_text')
-                ->label('Content (Text)')
-                ->columnSpanFull()
-                ->visible(fn ($get) => $get('type') === 'text'),
+            TextInput::make('title')->label('Content Title')->required()->maxLength(255)->visible(fn($get) => $get('type') === 'text' || $get('type') === 'video' || $get('type') === 'quiz'),
 
-            TextInput::make('video_url')
-                ->label('Video URL')
-                ->visible(fn ($get) => $get('type') === 'video'),
+            RichEditor::make('content_text')->label('Content (Text)')->columnSpanFull()->visible(fn($get) => $get('type') === 'text'),
 
-            TextInput::make('duration')
-                ->label('Duration (Minutes)')
-                ->numeric()
-                ->minValue(0)
-                ->visible(fn ($get) => $get('type') === 'video'),
+            TextInput::make('video_url')->label('Video URL')->visible(fn($get) => $get('type') === 'video'),
 
-            Textarea::make('quiz_data')
-                ->label('Quiz Content')
-                ->rows(4)
-                ->visible(fn ($get) => $get('type') === 'quiz'),
+            TextInput::make('duration')->label('Duration (Minutes)')->numeric()->minValue(0)->visible(fn($get) => $get('type') === 'video'),
+
+            Textarea::make('quiz_data')->label('Quiz Content')->rows(4)->visible(fn($get) => $get('type') === 'quiz'),
         ]);
     }
 
@@ -75,15 +57,9 @@ class ContentsResource extends Resource
             ->columns([
                 TextColumn::make('id')->sortable(),
 
-                TextColumn::make('course.title')
-                    ->label('Course')
-                    ->sortable()
-                    ->searchable(),
+                TextColumn::make('course.title')->label('Course')->sortable()->searchable(),
 
-                TextColumn::make('title')
-                    ->sortable()
-                    ->searchable()
-                    ->wrap(),
+                TextColumn::make('title')->sortable()->searchable()->wrap(),
 
                 BadgeColumn::make('type')
                     ->colors([
@@ -93,54 +69,28 @@ class ContentsResource extends Resource
                     ])
                     ->sortable(),
 
-                TextColumn::make('content_text')
-                    ->label('Text Content')
-                    ->limit(50)
-                    ->wrap()
-                    ->visible(fn ($record) => $record && $record->type === 'text'),
+                TextColumn::make('content_text')->label('Text Content')->limit(50)->wrap()->visible(fn($record) => $record && $record->type === 'text'),
 
-                TextColumn::make('video_url')
-                    ->label('Video URL')
-                    ->limit(50)
-                    ->copyable()
-                    ->copyMessage('Copied!')
-                    ->visible(fn ($record) => $record && $record->type === 'video'),
+                TextColumn::make('video_url')->label('Video URL')->limit(50)->copyable()->copyMessage('Copied!')->visible(fn($record) => $record && $record->type === 'video'),
 
-                TextColumn::make('quiz_data')
-                    ->label('Quiz')
-                    ->limit(50)
-                    ->wrap()
-                    ->visible(fn ($record) => $record && $record->type === 'quiz'),
+                TextColumn::make('quiz_data')->label('Quiz')->limit(50)->wrap()->visible(fn($record) => $record && $record->type === 'quiz'),
 
-                TextColumn::make('duration')
-                    ->label('Duration')
-                    ->suffix(' min')
-                    ->sortable(),
+                TextColumn::make('duration')->label('Duration')->suffix(' min')->sortable(),
 
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable(),
+                TextColumn::make('created_at')->dateTime()->sortable(),
             ])
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->actions([Tables\Actions\ViewAction::make(), Tables\Actions\EditAction::make(), Tables\Actions\DeleteAction::make()])
+            ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make()])]);
     }
 
     public static function getRelations(): array
     {
         return [
-            //
-        ];
+                //
+            ];
     }
 
     public static function getPages(): array

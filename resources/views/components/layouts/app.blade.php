@@ -21,8 +21,8 @@
         <nav class="hidden md:flex space-x-6 text-sm font-medium">
             <a href="{{ url('/') }}" wire:navigate class="text-gray-800 hover:text-blue-600 transition-all duration-200">Home</a>
             <a href="{{ url('/') }}" wire:navigate class="text-gray-800 hover:text-blue-600 transition-all duration-200">Courses</a>
-            <a href="#about" class="text-gray-800 hover:text-blue-600 transition-all duration-200">About</a>
-            <a href="#contact" class="text-gray-800 hover:text-blue-600 transition-all duration-200">Contact</a>
+            {{-- <a href="#about" class="text-gray-800 hover:text-blue-600 transition-all duration-200">About</a>
+            <a href="#contact" class="text-gray-800 hover:text-blue-600 transition-all duration-200">Contact</a> --}}
         </nav>
 
         <!-- User Section -->
@@ -48,7 +48,7 @@
                     </button>
                 </form>
             @else
-                <a href=""
+                {{-- <a href=""
                    wire:navigate
                    class="text-blue-600 font-semibold text-sm hover:underline transition duration-200">
                     Login
@@ -57,7 +57,7 @@
                    wire:navigate
                    class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm shadow hover:bg-blue-700 transition-all duration-200">
                     Register
-                </a>
+                </a> --}}
             @endif
         </div>
     </div>
