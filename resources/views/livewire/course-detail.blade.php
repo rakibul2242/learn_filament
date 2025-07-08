@@ -1,7 +1,6 @@
 @section('title', $course->title . ' | Course Details')
 
-<main class="bg-gray-50 min-h-screen py-10">
-    <div class="container mx-auto max-w-7xl px-4">
+    <div class="container mx-auto max-w-7xl py-10 px-4">
 
         <a href="{{ route('courses.list') }}"
             class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center mb-6">
@@ -89,4 +88,3 @@
         </div>
         <livewire:content-list :course="$course" />
     </div>
-</main>

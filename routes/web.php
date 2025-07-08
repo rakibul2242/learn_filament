@@ -25,6 +25,9 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\CoursesList;
 use App\Livewire\CourseDetail;
 use App\Livewire\EnrolledStudents;
+use App\Livewire\SignupForm;
+
+Route::get('/signup', SignupForm::class);
 
 Route::get('/', CoursesList::class);
 Route::get('/courses', CoursesList::class)->name('courses.list');
