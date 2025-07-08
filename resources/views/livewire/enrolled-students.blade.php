@@ -1,8 +1,5 @@
-@section('title', $course->title . ' | Course Details')
-
 <main class="bg-gray-50 min-h-screen py-10">
     <div class="container mx-auto max-w-7xl px-4">
-
         <a href="{{ route('courses.list') }}"
             class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
@@ -11,7 +8,6 @@
             </svg>
             Back to Courses
         </a>
-
         <div class="bg-white rounded-2xl shadow-lg overflow-hidden border">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
 
@@ -87,6 +83,26 @@
                 </div>
             </div>
         </div>
-        <livewire:content-list :course="$course" />
+        <div class="mt-10">
+            <h2 class="text-xl font-bold mb-4">Enrolled Students</h2>
+
+            @if ($students->count())
+                <ul class="space-y-2">
+                    @foreach ($students as $student)
+                        <li class="bg-white p-4 rounded shadow">
+                            <div class="font-semibold text-gray-800">{{ $student->name }}</div>
+                            <div class="text-sm text-gray-600">{{ $student->email }}</div>
+                        </li>
+                          @livewire('delete-student', ['studentId' => $student->id], key($student->id))
+                    @endforeach
+                </ul>
+
+                <div class="mt-4">
+                    {{ $students->links() }}
+                </div>
+            @else
+                <p class="text-gray-500">No students enrolled in this course yet.</p>
+            @endif
+        </div>
     </div>
 </main>

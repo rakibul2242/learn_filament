@@ -1,6 +1,15 @@
 <div class="mt-12">
-    <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-2">Course Contents</h2>
-
+    <div class="flex justify-between gap-4 mb-6">
+        <h2 class="text-3xl font-bold text-gray-900 border-b pb-2">Course Contents</h2>
+        <a href="{{ route('filament.admin.resources.contents.create') }}"
+            class="inline-flex items-center gap-2 bg-green-600 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            Add Content
+        </a>
+    </div>
     <div class="flex flex-wrap gap-3 mb-8">
         @foreach (['' => 'All', 'text' => 'Text', 'video' => 'Video', 'quiz' => 'Quiz'] as $type => $label)
             <button wire:click="$set('filterType', '{{ $type }}')"
@@ -12,7 +21,7 @@
     </div>
 
     @if ($contents->count())
-        <div class="grid gap-6">
+        <div class="grid grid-cols-2 gap-6">
             @foreach ($contents as $content)
                 <div class="bg-white border border-gray-200 shadow-sm rounded-xl p-6 transition hover:shadow-md">
                     <div class="flex items-center justify-between mb-3">
@@ -44,9 +53,9 @@
                     </div>
                 </div>
             @endforeach
-            <div class="mt-8">
-                {{ $contents->links() }}
-            </div>
+        </div>
+        <div class="mt-8">
+            {{ $contents->links() }}
         </div>
     @else
         <div class="text-center py-10 text-gray-500">

@@ -20,7 +20,7 @@ class CourseDetail extends Component
 
         if (!$user) {
             session()->flash('error', 'Please log in to enroll.');
-            return redirect()->route('login');
+            return redirect('/admin/login'); // 🔁 Go to Filament login
         }
 
         $alreadyEnrolled = Enrollment::where('user_id', $user->id)->where('course_id', $this->course->id)->exists();

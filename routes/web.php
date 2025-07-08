@@ -24,7 +24,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Livewire\CoursesList;
 use App\Livewire\CourseDetail;
+use App\Livewire\EnrolledStudents;
 
 Route::get('/', CoursesList::class);
 Route::get('/courses', CoursesList::class)->name('courses.list');
 Route::get('/courses/{course}', CourseDetail::class)->name('courses.show');
+Route::get('/courses/{course}/enrolled', EnrolledStudents::class)->name('courses.enrolled');
